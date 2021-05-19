@@ -1,0 +1,77 @@
+<!doctype html>
+<script src="{{url_for('static', filename='index.js')}}"></script>
+
+<html>
+<head>
+    <title>Sudoku solver</title>
+    <style>
+       input {
+    width: 100%;
+    font-family: 'Times New Roman';
+    font-size: 16px;
+    color: #0000cc;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 0;
+    text-align:center;
+}
+        table {
+  margin:1em auto;
+}
+        td {
+  height:30px;
+  width:30px;
+  border:1px solid;
+  text-align:center;
+}
+        td:nth-child(3n) {
+  border-right:solid ;
+}
+        tr:nth-child(3n) td {
+  border-bottom:solid ;
+}
+
+    </style>
+</head>
+<body>
+<p align="center">Initial sudoku board:</p>
+<table>
+    {% for row in initial_board %}
+    <tr>
+        {% for value in row %}
+        {% if value == 0 %}
+        <td><input autocomplete="off"/>
+        </td>
+        {% else %}
+        <td>{{value}}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<div style="text-align: center">
+    <button onclick="location.reload()">Load another initial board</button>
+</div>
+<br>
+<div style="text-align: center">
+    <button onclick="show(); change()" id="ButtonShowHide">Show solved sudoku board</button>
+</div>
+
+<div id="myDIV" style="display: none">
+    <p align="center">
+        <br>
+        Solved sudoku board:
+    </p>
+    <table>
+        {% for row in solved_board %}
+        <tr>
+            {% for value in row %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
