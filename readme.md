@@ -1,5 +1,8 @@
 # Sudoku
-A local hosted website showing a random sudoku board that can be solved by inputing numbers from a user with a possibility to show a solved board calculated by the algorithm.
+A website showing a random sudoku board that can be solved by inputing numbers from a user with a possibility to show a solved board calculated by the algorithm.
+
+You can preview the app at: http://srv08.mikr.us:40127/sudoku (deployed and hosted by generous and helpful friends)
+
 
 # Screenshots
 ![Example_initial_board.png](docs/Example_initial_board.png "Example initial board")
@@ -17,5 +20,4 @@ A local hosted website showing a random sudoku board that can be solved by input
 
 # Possible improvements
 - add ability to check if user input is the correct solution
-- learn about website hosting to make the project viewable online
 - prettify the website desing with more advanced html and JS
