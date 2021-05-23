@@ -120,4 +120,5 @@ def sudoku():
     return render_template("index.html", initial_board=initial_board, solved_board=solved_board)
 
 
-app.run()
+if __name__ == "__main__":
+    app.run()
