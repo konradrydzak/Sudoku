@@ -7,6 +7,9 @@ initial_board_manual_input = False
 
 
 def generate_board():
+    """
+    Generates initial sudoku board
+    """
     if initial_board_manual_input:
         # Arto Inkala's "impossible" puzzle
         board = [
@@ -53,6 +56,10 @@ def generate_board():
 
 
 def print_board(board):
+    """
+    Prints current sudoku board state
+    :param board: Sudoku board
+    """
     for i in range(len(board)):
         if i % 3 == 0 and i != 0:
             print(f'- - - - - - - - - - -')
@@ -66,6 +73,11 @@ def print_board(board):
 
 
 def find_empty(board):
+    """
+    Finds an empty cell in current sudoku board state
+    :param board: Sudoku board
+    :return: Coordinates x, y of of an empty cell in current sudoku board state, None if not found
+    """
     for i in range(len(board)):
         for j in range(len(board[0])):
             if board[i][j] == 0:
@@ -74,6 +86,13 @@ def find_empty(board):
 
 
 def check_if_valid(board, input_number, position):
+    """
+    Checks if the input_number at position in currend sudoku board state is valid
+    :param board: Sudoku board
+    :param input_number: Value to input in a cell
+    :param position: List of [x, y] coordinates of a cell to try to input the input_number to
+    :return: True if input_number at position is valid, False if it's not
+    """
     # Check row
     for j in range(len(board[0])):
         if j != position[1] and board[position[0]][j] == input_number:
@@ -93,6 +112,11 @@ def check_if_valid(board, input_number, position):
 
 
 def solve(board):
+    """
+    CRecursively try to brute force a solution to initial sudoku board
+    :param board: Sudoku board
+    :return: True if solution found, False if it's not found
+    """
     try_position = find_empty(board)
     if try_position is None:
         return True
@@ -122,3 +146,4 @@ def sudoku():
 
 if __name__ == "__main__":
     app.run()
+    find_empty()
