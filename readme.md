@@ -4,20 +4,20 @@ A website showing a random sudoku board that can be solved by inputing numbers f
 You can preview the app at: http://srv08.mikr.us:40127/sudoku (deployed and hosted by generous and helpful friends)
 
 
-# Screenshots
+## Screenshots
 ![Example_initial_board.png](docs/Example_initial_board.png "Example initial board")
 
 ![Example_partial_solved_sudoku.png](docs/Example_partial_solved_sudoku.png "Example partial solved sudoku")
 
 ![Example_solved_sudoku_shown.png](docs/Example_solved_sudoku_shown.png "Example solved sudoku shown")
 
-# Skills used
+## Skills used
 - using a API to get random initial sudoku boards to solve
 - creating a backup base of initial boards to use when API request is not responding
 - creating an algorithm that solves the sudoku
 - creating a simple local website with Flask
 - using a simple .js and .html file for website formatting and functions
 
-# Possible improvements
+### Possible improvements
 - add ability to check if user input is the correct solution
 - prettify the website desing with more advanced html and JS
