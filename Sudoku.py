@@ -38,10 +38,10 @@ def generate_board():
     else:
         board = [[0] * 9 for i in range(9)]  # Setting up a empty sudoku board
         try:
-            with urllib.request.urlopen("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3") as url:
+            with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3") as url:
                 data = json.loads(url.read().decode())
         except:
-            with open('data.json') as json_file:
+            with open(file='data.json') as json_file:
                 json_objects = json.load(json_file)
                 data = json_objects['sudoku_boards_data_base'][
                     random.randint(0, len(json_objects['sudoku_boards_data_base']))]
@@ -117,14 +117,14 @@ def solve(board):
     :param board: Sudoku board
     :return: True if solution found, False if it's not found
     """
-    try_position = find_empty(board)
+    try_position = find_empty(board=board)
     if try_position is None:
         return True
     for number in range(1, 9 + 1):
-        if check_if_valid(board, number, try_position):
+        if check_if_valid(board=board, input_number=number, position=try_position):
             board[try_position[0]][try_position[1]] = number
             # Recursively try if picked numbers are correct solutions, if it's wrong, backtrack to try another number
-            if solve(board):
+            if solve(board=board):
                 return True
             else:
                 board[try_position[0]][try_position[1]] = 0
@@ -139,7 +139,7 @@ app = Flask(__name__)
 def sudoku():
     board = generate_board()
     initial_board = [[value for value in row] for row in board]
-    solve(board)
+    solve(board=board)
     solved_board = [[value for value in row] for row in board]
     return render_template("index.html", initial_board=initial_board, solved_board=solved_board)
 
