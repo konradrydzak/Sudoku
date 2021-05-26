@@ -62,14 +62,14 @@ def print_board(board):
     """
     for i in range(len(board)):
         if i % 3 == 0 and i != 0:
-            print(f'- - - - - - - - - - -')
+            print('- - - - - - - - - - -')
         for j in range(len(board[0])):
             if j % 3 == 0 and j != 0:
-                print(f'| ', end="")
+                print('| ', end="")
             if j == 8:
                 print(board[i][j])
             else:
-                print(f'{board[i][j]} ', end="")
+                print('{board[i][j]} ', end="")
 
 
 def find_empty(board):
@@ -126,8 +126,7 @@ def solve(board):
             # Recursively try if picked numbers are correct solutions, if it's wrong, backtrack to try another number
             if solve(board=board):
                 return True
-            else:
-                board[try_position[0]][try_position[1]] = 0
+            board[try_position[0]][try_position[1]] = 0
     # If all numbers from 1 to 9 are no longer valid, this solution patch in recursion is wrong and we need to backtrack
     return False
 
@@ -146,4 +145,3 @@ def sudoku():
 
 if __name__ == "__main__":
     app.run()
-    find_empty()
