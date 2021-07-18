@@ -20,4 +20,4 @@ You can preview the app at: http://srv08.mikr.us:40127/sudoku (deployed and host
 
 ### Possible improvements
 - add ability to check if user input is the correct solution
-- prettify the website desing with more advanced html and JS
+- prettify the website design with more advanced html and JS
