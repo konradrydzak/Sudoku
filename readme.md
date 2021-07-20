@@ -1,7 +1,7 @@
 # Sudoku
 A website showing a random sudoku board that can be solved by inputing numbers from a user with a possibility to show a solved board calculated by the algorithm.
 
-You can preview the app at: http://srv08.mikr.us:40127/sudoku (deployed and hosted by generous and helpful friends)
+You can preview the app at: https://learning-sudoku-project.herokuapp.com/sudoku
 
 
 ## Screenshots
