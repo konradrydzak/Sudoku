@@ -1,6 +1,7 @@
 import json
-import urllib.request
 import random
+import urllib.request
+from urllib.error import URLError
 
 initial_board_manual_input = False
 
@@ -47,15 +48,16 @@ def generate_board():
             [2, 1, 0, 0, 0, 0, 4, 0, 9]
         ]
     else:
-        board = [[0] * 9 for i in range(9)]  # Setting up a empty sudoku board
+        board = [[0] * 9 for _ in range(9)]  # Setting up a empty sudoku board
         try:
-            with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3") as url:
+            with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3?qwe") as url:
                 data = json.loads(url.read().decode())
-        except:
+        except URLError as e:
             with open(file='data.json') as json_file:
                 json_objects = json.load(json_file)
                 data = json_objects['sudoku_boards_data_base'][
                     random.randint(0, len(json_objects['sudoku_boards_data_base']))]
+            print("Error code: ", e.reason)
 
         if data['response']:
             for initial_sudoku_value in data['squares']:
