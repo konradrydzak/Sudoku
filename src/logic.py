@@ -30,6 +30,9 @@ def generate_board():
 
 
 def is_row_valid(board, row):
+    """
+    Checks if all values in a row are valid (no duplicates)
+    """
     set_for_check = set()
     for j in range(0, 9):
         if board[row][j] in set_for_check:
@@ -40,6 +43,11 @@ def is_row_valid(board, row):
 
 
 def is_col_valid(board, col):
+    """
+    Checks if all values in a collumn are valid (no duplicates)
+    :param board: Sudoku board
+    :param col: Selected column in sudoku board
+    """
     set_for_check = set()
     for i in range(0, 9):
         if board[i][col] in set_for_check:
@@ -50,6 +58,12 @@ def is_col_valid(board, col):
 
 
 def is_box_valid(board, start_row, start_col):
+    """
+    Checks if all values in a box (3x3 in sudoku board grid) are valid (no duplicates)
+    :param board: Sudoku board
+    :param start_row: Selected starting row for a 3x3 box in sudoku board
+    :param start_col: Selected starting column for a 3x3 box in sudoku board
+    """
     set_for_check = set()
     for row in range(3):
         for col in range(3):
@@ -62,10 +76,20 @@ def is_box_valid(board, start_row, start_col):
 
 
 def three_checks_for_validation(board, row, col):
+    """
+    Checks for three options: row, column and 3x3 box to validate sudoku board
+    :param board: Sudoku board
+    :param col: Selected row in sudoku board
+    :param col: Selected column in sudoku board
+    """
     return is_row_valid(board, row) and is_col_valid(board, col) and is_box_valid(board, row - row % 3, col - col % 3)
 
 
 def check_if_board_is_valid(board):
+    """
+    Checks if provided board is valid
+    :param board: Sudoku board
+    """
     for i in range(9):
         for j in range(9):
             if not three_checks_for_validation(board, i, j):

@@ -1,5 +1,6 @@
 <!doctype html>
 <script src="{{url_for('static', filename='index.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='index.css')}}">
 
 <html>
 <head>
@@ -36,8 +37,11 @@
 <body>
 
 <div align="center">
-    <a href=https://learning-sudoku-project.herokuapp.com/>Get random sudoku board</a>
-    <a style="margin-left:2.5em" href=https://learning-sudoku-project.herokuapp.com/solve/>
+    <a href="javascript:window.location.href=window.location.protocol+'//'+window.location.host">
+        Get random sudoku board
+    </a>
+    <a style="margin-left:2.5em"
+       href=javascript:window.location.href=window.location.protocol+'//'+window.location.host+/solve/>
         Input a sudoku board to solve/check
     </a>
 </div>
@@ -49,7 +53,7 @@
         {% for row in initial_board %}
         <tr>
             {% for value in row %}
-            <td><b><input name="value" autocomplete="off"/></b></td>
+            <td><b><input type="number" min="1" max="9" inputmode="numeric" name="value" autocomplete="off"/></b></td>
             {% endfor %}
         </tr>
         {% endfor %}
