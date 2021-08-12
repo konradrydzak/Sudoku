@@ -61,11 +61,22 @@ def check_random_sudoku():
     elif is_board_full:
         return render_template("sudoku_checked_completed.html", initial_board=initial_board, filled_board=filled_board)
     else:
+        # Solve current state of the sudoku board (after user input)
         board = [[value for value in row] for row in filled_board]
         logic.solve(board=board)
         solved_board = [[value for value in row] for row in board]
-        return render_template("sudoku_checked_correct.html", initial_board=initial_board, filled_board=filled_board,
-                               solved_board=solved_board)
+        # Is solution is not found (recursive algorithm returned the same board as input) return invalid solution page
+        if solved_board == filled_board:
+            board = [[value for value in row] for row in initial_board]
+            logic.solve(board=board)
+            solved_board = [[value for value in row] for row in board]
+            return render_template("sudoku_checked_invalid.html", initial_board=initial_board,
+                                   filled_board=filled_board,
+                                   solved_board=solved_board)
+        else:
+            return render_template("sudoku_checked_correct.html", initial_board=initial_board,
+                                   filled_board=filled_board,
+                                   solved_board=solved_board)
 
 
 @app.route('/solve/')
