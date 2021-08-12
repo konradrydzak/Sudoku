@@ -1,1 +1,1 @@
-web: gunicorn Sudoku:app
+web: gunicorn Sudoku:app --chdir src/
