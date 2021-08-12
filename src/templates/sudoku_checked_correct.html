@@ -1,0 +1,111 @@
+<!doctype html>
+<script src="{{url_for('static', filename='index.js')}}"></script>
+
+<html>
+<head>
+    <title>Sudoku solver</title>
+    <style>
+       input {
+    width: 100%;
+    font-family: 'Times New Roman';
+    font-size: 16px;
+    color: #999999;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 0;
+    text-align:center;
+    }
+        table {
+      margin:1em auto;
+    }
+        td {
+      height:30px;
+      width:30px;
+      border:1px solid;
+      text-align:center;
+    }
+        td:nth-child(3n) {
+      border-right:solid ;
+    }
+        tr:nth-child(3n) td {
+      border-bottom:solid ;
+    }
+    </style>
+</head>
+
+<body>
+
+<div align="center">
+    <a href=https://learning-sudoku-project.herokuapp.com/>Get random sudoku board</a>
+    <a style="margin-left:2.5em" href=https://learning-sudoku-project.herokuapp.com/solve/>
+        Input a sudoku board to solve/check
+    </a>
+</div>
+
+<p align="center">Random initial sudoku board:</p>
+
+<form action="/" method="POST">
+    <table>
+        {% for i in range(9) %}
+        <tr>
+            {% for j in range(9) %}
+            {% if filled_board[i][j] == 0 %}
+            <td><input name="value" autocomplete="off"/>
+                {% elif filled_board[i][j] == initial_board[i][j] %}
+            <td>
+                <b>{{filled_board[i][j]}}</b><input name="value" value={{filled_board[i][j]}} style="display: none">
+            </td>
+            {% else %}
+            <td><input name="value" value={{filled_board[i][j]}}></td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div style="text-align: center">
+        <button type="button" onclick="location.href = 'https://learning-sudoku-project.herokuapp.com/'">
+            Load another initial board
+        </button>
+    </div>
+
+    {% for row in initial_board %}
+    {% for value in row %}
+    <input name="initial_board" value={{value}} style="display: none">
+    {% endfor %}
+    {% endfor %}
+
+    <p align="center">So far so good</p>
+
+    <div style="text-align: center">
+        <button type="submit">Check my solution</button>
+    </div>
+</form>
+
+
+<br>
+<div style="text-align: center">
+    <button onclick="show(); change()" id="ButtonShowHide">Show solved sudoku board</button>
+</div>
+
+<div id="myDIV" style="display: none">
+    <p align="center">
+        Solved sudoku board:
+    </p>
+    <table>
+        {% for i in range(9) %}
+        <tr>
+            {% for j in range(9) %}
+            {% if solved_board[i][j] == initial_board[i][j] %}
+            <td><b>{{solved_board[i][j]}}</b></td>
+            {% else %}
+            <td>{{solved_board[i][j]}}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

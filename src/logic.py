@@ -3,69 +3,74 @@ import random
 import urllib.request
 from urllib.error import URLError
 
-initial_board_manual_input = False
-
 
 def generate_board():
     """
     Generates initial sudoku board
     """
-    if initial_board_manual_input:
-        # Arto Inkala's "impossible" puzzle
-        # board = [
-        #     [8, 0, 0, 0, 0, 0, 0, 0, 0],
-        #     [0, 0, 3, 6, 0, 0, 0, 0, 0],
-        #     [0, 7, 0, 0, 9, 0, 2, 0, 0],
-        #     [0, 5, 0, 0, 0, 7, 0, 0, 0],
-        #     [0, 0, 0, 0, 4, 5, 7, 0, 0],
-        #     [0, 0, 0, 1, 0, 0, 0, 3, 0],
-        #     [0, 0, 1, 0, 0, 0, 0, 6, 8],
-        #     [0, 0, 8, 5, 0, 0, 0, 1, 0],
-        #     [0, 9, 0, 0, 0, 0, 4, 0, 0]
-        # ]
-        # SudokuWiki Unsolvable #28 (takes a bit of time to beat)
-        # board = [
-        #     [6, 0, 0, 0, 0, 8, 9, 4, 0],
-        #     [9, 0, 0, 0, 0, 6, 1, 0, 0],
-        #     [0, 7, 0, 0, 4, 0, 0, 0, 0],
-        #     [2, 0, 0, 6, 1, 0, 0, 0, 0],
-        #     [0, 0, 0, 0, 0, 0, 2, 0, 0],
-        #     [0, 8, 9, 0, 0, 2, 0, 0, 0],
-        #     [0, 0, 0, 0, 6, 0, 0, 0, 5],
-        #     [0, 0, 0, 0, 0, 0, 0, 3, 0],
-        #     [8, 0, 0, 0, 0, 1, 6, 0, 0]
-        # ]
-        # User input:
-        board = [
-            [0, 0, 8, 0, 5, 0, 0, 7, 0],
-            [0, 0, 5, 0, 0, 0, 0, 0, 1],
-            [4, 0, 2, 9, 0, 0, 0, 0, 0],
-            [0, 9, 0, 0, 4, 0, 0, 0, 3],
-            [6, 0, 0, 0, 0, 2, 0, 0, 0],
-            [0, 0, 0, 7, 9, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 6, 1, 0, 0],
-            [5, 0, 0, 0, 2, 0, 6, 0, 0],
-            [2, 1, 0, 0, 0, 0, 4, 0, 9]
-        ]
-    else:
-        board = [[0] * 9 for _ in range(9)]  # Setting up a empty sudoku board
-        try:
-            with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3?qwe") as url:
-                data = json.loads(url.read().decode())
-        except URLError as e:
-            with open(file='data.json') as json_file:
-                json_objects = json.load(json_file)
-                data = json_objects['sudoku_boards_data_base'][
-                    random.randint(0, len(json_objects['sudoku_boards_data_base']))]
-            print("Error code: ", e.reason)
+    board = [[0] * 9 for _ in range(9)]  # Setting up a empty sudoku board
+    try:
+        with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3?qwe") as url:
+            data = json.loads(url.read().decode())
+    except URLError as e:
+        with open(file='data.json') as json_file:
+            json_objects = json.load(json_file)
+            data = json_objects['sudoku_boards_data_base'][
+                random.randint(0, len(json_objects['sudoku_boards_data_base']))]
+        print("Error code: ", e.reason)
 
-        if data['response']:
-            for initial_sudoku_value in data['squares']:
-                row_position = initial_sudoku_value['x']
-                column_position = initial_sudoku_value['y']
-                value_at_position = initial_sudoku_value['value']
-                board[row_position][column_position] = value_at_position
+    if data['response']:
+        for initial_sudoku_value in data['squares']:
+            row_position = initial_sudoku_value['x']
+            column_position = initial_sudoku_value['y']
+            value_at_position = initial_sudoku_value['value']
+            board[row_position][column_position] = value_at_position
+
     return board
+
+
+def is_row_valid(board, row):
+    set_for_check = set()
+    for j in range(0, 9):
+        if board[row][j] in set_for_check:
+            return False
+        elif board[row][j] != 0:
+            set_for_check.add(board[row][j])
+    return True
+
+
+def is_col_valid(board, col):
+    set_for_check = set()
+    for i in range(0, 9):
+        if board[i][col] in set_for_check:
+            return False
+        elif board[i][col] != 0:
+            set_for_check.add(board[i][col])
+    return True
+
+
+def is_box_valid(board, start_row, start_col):
+    set_for_check = set()
+    for row in range(3):
+        for col in range(3):
+            value = board[row + start_row][col + start_col]
+            if value in set_for_check:
+                return False
+            if value != 0:
+                set_for_check.add(value)
+    return True
+
+
+def three_checks_for_validation(board, row, col):
+    return is_row_valid(board, row) and is_col_valid(board, col) and is_box_valid(board, row - row % 3, col - col % 3)
+
+
+def check_if_board_is_valid(board):
+    for i in range(9):
+        for j in range(9):
+            if not three_checks_for_validation(board, i, j):
+                return False
+    return True
 
 
 def print_board(board):
@@ -98,7 +103,7 @@ def find_empty(board):
     return None
 
 
-def check_if_valid(board, input_number, position):
+def check_if_input_is_valid(board, input_number, position):
     """
     Checks if the input_number at position in currend sudoku board state is valid
     :param board: Sudoku board
@@ -124,9 +129,19 @@ def check_if_valid(board, input_number, position):
     return True  # Input number placement is valid
 
 
+def place_at_position(board, input_number, position):
+    """
+    Inputs the input_number at position in currend sudoku board state
+    :param board: Sudoku board
+    :param input_number: Value to input in a cell
+    :param position: Tuple of [x, y] coordinates of a cell to input the input_number to
+    """
+    board[position[0]][position[1]] = input_number
+
+
 def solve(board):
     """
-    CRecursively try to brute force a solution to initial sudoku board
+    Recursively try to brute force a solution to initial sudoku board
     :param board: Sudoku board
     :return: True if solution found, False if it's not found
     """
@@ -134,11 +149,28 @@ def solve(board):
     if try_position is None:
         return True
     for number in range(1, 9 + 1):
-        if check_if_valid(board=board, input_number=number, position=try_position):
-            board[try_position[0]][try_position[1]] = number
+        if check_if_input_is_valid(board=board, input_number=number, position=try_position):
+            place_at_position(board=board, input_number=number, position=try_position)
             # Recursively try if picked numbers are correct solutions, if it's wrong, backtrack to try another number
             if solve(board=board):
                 return True
-            board[try_position[0]][try_position[1]] = 0
+            place_at_position(board=board, input_number=0, position=try_position)
     # If all numbers from 1 to 9 are no longer valid, this solution patch in recursion is wrong and we need to backtrack
     return False
+
+
+if __name__ == "__main__":
+    current_board = generate_board()
+    initial_board = [[value for value in row] for row in current_board]
+    print("Initial board:")
+    for row in initial_board:
+        print(row)
+    print()
+    solve(board=current_board)
+    solved_board = [[value for value in row] for row in current_board]
+    if solved_board != initial_board:
+        print("Solved board:")
+        for row in solved_board:
+            print(row)
+    else:
+        print("Initial board is not solvable")

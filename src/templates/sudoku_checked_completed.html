@@ -1,0 +1,70 @@
+<!doctype html>
+<script src="{{url_for('static', filename='index.js')}}"></script>
+
+<html>
+<head>
+    <title>Sudoku solver</title>
+    <style>
+       input {
+    width: 100%;
+    font-family: 'Times New Roman';
+    font-size: 16px;
+    color: #999999;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 0;
+    text-align:center;
+    }
+        table {
+      margin:1em auto;
+    }
+        td {
+      height:30px;
+      width:30px;
+      border:1px solid;
+      text-align:center;
+    }
+        td:nth-child(3n) {
+      border-right:solid ;
+    }
+        tr:nth-child(3n) td {
+      border-bottom:solid ;
+    }
+    </style>
+</head>
+
+<body>
+
+<div align="center">
+    <a href=https://learning-sudoku-project.herokuapp.com/>Get random sudoku board</a>
+    <a style="margin-left:2.5em" href=https://learning-sudoku-project.herokuapp.com/solve/>
+        Input a sudoku board to solve/check
+    </a>
+</div>
+
+<p align="center">Random initial sudoku board:</p>
+
+<table>
+    {% for i in range(9) %}
+    <tr>
+        {% for j in range(9) %}
+        {% if filled_board[i][j] == initial_board[i][j] %}
+        <td><b>{{filled_board[i][j]}}</b></td>
+        {% else %}
+        <td>{{filled_board[i][j]}}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<div style="text-align: center">
+    <button type="button" onclick="location.href = 'https://learning-sudoku-project.herokuapp.com/'">
+        Load another initial board
+    </button>
+</div>
+
+<p align="center">This sudoku is solved!</p>
+
+</body>
+</html>
