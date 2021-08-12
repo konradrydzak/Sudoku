@@ -50,7 +50,7 @@
         <tr>
             {% for value in row %}
             {% if value == 0 %}
-            <td><input name="value" autocomplete="off"/></td>
+            <td><input type="number" min="1" max="9" name="value" autocomplete="off"/></td>
             {% else %}
             <td><b>{{value}}</b><input name="value" value={{value}} style="display: none"></td>
             {% endif %}
