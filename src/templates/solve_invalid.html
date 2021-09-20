@@ -37,18 +37,18 @@
 <body>
 
 <div align="center">
-    <a href="javascript:window.location.href=window.location.protocol+'//'+window.location.host">
+    <a href=javascript:window.location.href=window.location.protocol+'//'+window.location.host+'/sudoku'>
         Get random sudoku board
     </a>
     <a style="margin-left:2.5em"
-       href=javascript:window.location.href=window.location.protocol+'//'+window.location.host+/solve/>
+       href=javascript:window.location.href=window.location.protocol+'//'+window.location.host+window.location.pathname>
         Input a sudoku board to solve/check
     </a>
 </div>
 
 <p align="center">Input a sudoku board:</p>
 
-<form action="/solve/" method="POST">
+<form action="/sudoku/solve/" method="POST">
     <table>
         {% for row in initial_board %}
         <tr>

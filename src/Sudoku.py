@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request
 
-import logic
+from src import logic
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/sudoku")
 def random_sudoku():
     board = logic.generate_board()
     initial_board = [[value for value in row] for row in board]
@@ -13,7 +13,7 @@ def random_sudoku():
     return render_template("sudoku.html", initial_board=initial_board, solved_board=board)
 
 
-@app.route("/", methods=['POST'])
+@app.route("/sudoku", methods=['POST'])
 def check_random_sudoku():
     # Prepares a initial and solved boards from original initial board
     starting_board = request.form.getlist('initial_board')
@@ -77,7 +77,7 @@ def check_random_sudoku():
                                    solved_board=board)
 
 
-@app.route('/solve/')
+@app.route('/sudoku/solve/')
 def input_board_to_solve():
     initial_board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -93,7 +93,7 @@ def input_board_to_solve():
     return render_template("solve_input.html", initial_board=initial_board)
 
 
-@app.route('/solve/', methods=['POST'])
+@app.route('/sudoku/solve/', methods=['POST'])
 def output_solved_board():
     # Prepares an initial board from user input
     values = request.form.getlist('value')
