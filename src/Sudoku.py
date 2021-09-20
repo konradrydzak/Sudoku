@@ -119,6 +119,10 @@ def output_solved_board():
         return render_template("solve_invalid.html", initial_board=initial_board)
     board = [[value for value in row] for row in initial_board]
     logic.solve(board=board)
+    for row in board:
+        for value in row:
+            if value == 0:
+                return render_template("solve_invalid.html", initial_board=initial_board)
     if is_board_full:
         return render_template("solve_completed.html", initial_board=board)
     else:
