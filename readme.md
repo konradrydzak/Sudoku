@@ -6,7 +6,7 @@ own sudoku board to check if you're doing it right and even show a solved board 
 
 You can preview the app at: http://srv08.mikr.us:30263/sudoku
 
-or at : https://learning-sudoku-project.herokuapp.com/sudoku
+or at: https://learning-sudoku-project.herokuapp.com/sudoku
 
 ## Screenshots
 
