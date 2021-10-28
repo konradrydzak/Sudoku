@@ -10,7 +10,7 @@ def generate_board():
     """
     board = [[0] * 9 for _ in range(9)]  # Setting up a empty sudoku board
     try:
-        with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3?qwe") as url:
+        with urllib.request.urlopen(url="http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&?level=3?qwe", timeout=3) as url:
             data = json.loads(url.read().decode())
     except URLError as e:
         with open(file='data.json') as json_file:
