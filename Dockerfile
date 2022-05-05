@@ -1,4 +1,6 @@
-FROM python:3.9
+FROM python:3.9-slim-buster
+
+RUN apt-get update && apt-get -y install libpq-dev gcc && pip install psycopg2
 
 COPY ./src /src
 COPY requirements.txt requirements.txt
