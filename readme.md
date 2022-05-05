@@ -4,9 +4,7 @@ A website for generating a random sudoku board that can be solved by inputing nu
 check the current state and show a solved board calculated by the algorithm. Website also provides a place to input your
 own sudoku board to check if you're doing it right and even show a solved board if possible.
 
-You can preview the app at: http://srv08.mikr.us:30263/sudoku
-
-or at: https://learning-sudoku-project.herokuapp.com/sudoku
+You can preview the app at: https://learning-sudoku-project.herokuapp.com/sudoku
 
 ## Screenshots
 
