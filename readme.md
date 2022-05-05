@@ -6,6 +6,12 @@ own sudoku board to check if you're doing it right and even show a solved board 
 
 You can preview the app at: https://learning-sudoku-project.herokuapp.com/sudoku
 
+## Setup
+
+1. Build docker image with: *docker build -t sudoku .*
+2. Run docker container with command: *docker run -d --name SudokuAPP -p 5000:5000 sudoku*
+3. Website with the app should be running at: http://localhost:5000/sudoku
+
 ## Screenshots
 
 ![Example_initial_board.png](docs/Example_initial_board.png "Example initial board")
