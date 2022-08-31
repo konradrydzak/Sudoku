@@ -4,7 +4,9 @@ A website for generating a random sudoku board that can be solved by inputing nu
 check the current state and show a solved board calculated by the algorithm. Website also provides a place to input your
 own sudoku board to check if you're doing it right and even show a solved board if possible.
 
-You can preview the app at: https://learning-sudoku-project.herokuapp.com/sudoku
+You can preview the app at: https://sudoku-vsea.onrender.com/sudoku
+
+~~https://learning-sudoku-project.herokuapp.com/sudoku~~ _(Heroku stops offering free tier on starting November 28, 2022)_
 
 ## Setup
 
@@ -30,7 +32,7 @@ You can preview the app at: https://learning-sudoku-project.herokuapp.com/sudoku
 - creating a simple website with Flask
 - added logic to make user input functionable
 - using a simple .js, .css and .html file for website formatting and functions
-- dockerized the Sudoku app and hosted it
+- dockerized the Sudoku app and hosted it (first on Heroku, then on Render)
 
 ### Possible improvements
 
